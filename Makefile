@@ -1,26 +1,31 @@
-CC=g++
-CFLAGS=-c -Wall -Werror -std=c++11
-INCLUDES=-I.
-PROGNAME=isabel-game
+APP     = isabel-game
+CC      = g++
+RM      = rm
+SRCDIR  = src
+SRCEXT  = cpp
+OBJDIR  = obj
+ 
+SRCS    := $(shell find $(SRCDIR) -name '*.$(SRCEXT)')
+SRCDIRS := $(shell find . -name '*.$(SRCEXT)' -exec dirname {} \; | uniq)
+OBJS    := $(patsubst %.$(SRCEXT),$(OBJDIR)/%.o,$(SRCS))
 
-.PHONY: clean
+INCLUDE = -I./include
+CFLAGS  = -Wall -Werror -std=c++11 -c $(INCLUDE)
 
-all: $(PROGNAME)
-$(PROGNAME): main.o InputHandler.o Action.o Player.o
-	$(CC) $(INCLUDES) main.o InputHandler.o Action.o Player.o -o $(PROGNAME)
-
-main.o: main.cpp
-	$(CC) $(CFLAGS) $(INCLUDES) main.cpp
-
-InputHandler.o: InputHandler.cpp  
-	$(CC) $(CFLAGS) $(INCLUDES) InputHandler.cpp
-
-Action.o: Action.cpp
-	$(CC) $(CFLAGS) $(INCLUDES) Action.cpp	
-
-Player.o: Player.cpp
-	$(CC) $(CFLAGS) $(INCLUDES) Player.cpp
-
+all: $(APP)
+ 
+$(APP): buildrepo $(OBJS)
+	$(CC) $(OBJS) -o $@
+ 
+$(OBJDIR)/%.o: %.$(SRCEXT)
+	$(CC) $(CFLAGS) $< -o $@
+ 
 clean:
-	rm -rf *.o
-
+	$(RM) -r $(OBJDIR)
+ 
+buildrepo:
+	$(call make-repo)
+ 
+define make-repo  
+	@for dir in $(SRCDIRS); do mkdir -p $(OBJDIR)/$$dir; done ||:
+endef
