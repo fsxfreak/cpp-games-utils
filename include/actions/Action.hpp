@@ -4,7 +4,11 @@
 class Action
 {
 public:
-    virtual void usage() const;
+    Action(void *o) : obj(o) {}
+    virtual void usage() const = 0;
+    virtual void execute() const = 0;
+protected:
+    void* const obj;
 };
 
 #endif
