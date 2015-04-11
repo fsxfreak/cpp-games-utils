@@ -10,7 +10,7 @@ int main()
         input.updateInput();      
 
 
-    } while (!input.endSignal());
+    } while (!input.isEndSignal);
 
     return 0;
 }

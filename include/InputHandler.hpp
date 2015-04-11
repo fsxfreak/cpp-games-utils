@@ -2,6 +2,7 @@
 #define INPUT_HANDLER_HPP
 
 #include <actions/Action.hpp>
+#include <actions/QuitAction.hpp>
 #include <memory>
 #include <map>
 
@@ -11,8 +12,8 @@ public:
     InputHandler();
     ~InputHandler() = default;
     void updateInput();
-
-    bool endSignal() const;
+    
+    bool isEndSignal;
 private:
     InputHandler(const InputHandler&) = delete;
     InputHandler& operator=(const InputHandler&) = delete;
@@ -29,8 +30,6 @@ private:
     std::map<std::string, std::unique_ptr<Action>> validInputs;
 
     void printValidCommands();
-
-    bool isEndSignal;
 };
 
 #endif
