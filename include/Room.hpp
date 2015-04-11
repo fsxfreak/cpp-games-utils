@@ -1,14 +1,18 @@
 #ifndef ROOM_HPP
 #define ROOM_HPP
 
+#include <Door.hpp>
 #include <string>
 #include <items/Item.hpp>
-#include <unordered_set>
+#include <list>
+#include <vector>
+
+class Door;
 
 class Room
 {
 public:
-    Room(const std::string& name, const std::unordered_set<Item>& items);
+    Room(const std::string& name, const std::list<Item>& items);
 
     void printItems() const;
     const std::string& getName() const; //may not need this, may just need a pretty print
@@ -18,11 +22,12 @@ public:
     Item retrieveItem(const std::string& item);
     //somehow take item by move
     void leaveItem(Item item);
-protected:
-    std::unordered_set<Item> items;
-private:
-    const std::string name;
 
+    void connectTo(Room *other);
+private:
+    std::list<Item> items;
+    std::vector<Door> doors;
+    const std::string name;
 };
 
 #endif

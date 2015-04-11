@@ -2,17 +2,17 @@
 #define DOOR_HPP
 
 #include <Room.hpp>
+#include <items/Item.hpp>
 
-//it's like a pointer, but with checks
+//it's like a double ended pointer, but with checks
+
+class Room;
 
 class Door
 {
 public:
     Door(Room* const left, Room* const right);
-
     void unlock(const Item& withItem);
-
-    //can I overload operator-> lol
     Room* getNextRoom(Room *fromThis) const;
 private:
     bool isUnlocked;

@@ -1,10 +1,11 @@
 #include <Room.hpp>
 
+#include <algorithm>
 #include <iostream>
-#include <unordered_set>
+#include <list>
 #include <string>
 
-Room::Room(const std::string& name, const std::unordered_set<Item>& items) 
+Room::Room(const std::string& name, const std::list<Item>& items) 
     : items(items), name(name) 
 { }
 
@@ -30,6 +31,17 @@ Item Room::retrieveItem(const std::string& item)
 
 void Room::leaveItem(Item item)
 {
-    //insert item into list
     items.push_back(item);
+}
+
+void Room::connectTo(Room *other)
+{
+    auto doorExistsAlready = [&] (const Door& door) {
+        return door.getNextRoom(this) == other;
+    };
+    if (std::find_if(doors.begin(), doors.end(), doorExistsAlready) 
+        != doors.end())
+    {
+        doors.emplace_back(this, other);
+    }
 }
