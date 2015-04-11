@@ -1,13 +1,14 @@
 #ifndef QUIT_ACTION_HPP
 #define QUIT_ACTION_HPP
 
-#include <actions/SystemAction.hpp>
+#include <actions/Action.hpp>
 
-class QuitAction : public SystemAction
+class QuitAction : public Action
 {
 public:
-	virtual void usage() const override;
-    virtual void execute(InputHandler* const handler) const override;
+    QuitAction(void *o);
+    virtual void usage() const override;
+    virtual void execute() const override;
 };
 
 #endif
