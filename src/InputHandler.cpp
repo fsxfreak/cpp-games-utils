@@ -24,6 +24,7 @@ InputHandler::InputHandler()
     validInputs.emplace("enter", nullptr);
     validInputs.emplace("use", nullptr);
     validInputs.emplace("retrieve", nullptr);
+    validInputs.emplace("drop", nullptr);
     validInputs.emplace("quit", stdex::make_unique<QuitAction>(this));
 }
 
@@ -38,6 +39,8 @@ std::vector<std::string> tokenizeString(const std::string &str)
 
 void InputHandler::updateInput()
 {
+    std::cout << "What would you like to do?" << std::endl;
+
     std::string input;
     std::getline(std::cin, input);
 
@@ -51,12 +54,12 @@ void InputHandler::updateInput()
 
     if (tokens.size() > 2)
     {
-        std::cout << "You inputted too many commands. (Limit two)." << std::endl;
+        std::cout << "You inputted too many commands. Limit two." << std::endl;
         return;
     }
 
     const std::string command = tokens[0];
-    const std::string argument = tokens[1];
+    const std::string argument = tokens.size() == 2 ? tokens[1] : "";
 
     auto it = validInputs.find(command);
     if (it == validInputs.end())
@@ -66,7 +69,11 @@ void InputHandler::updateInput()
     }
     else
     {
-        it->second->execute();
+        auto& action = it->second;
+        if (action) action->execute(argument);
+        else std::cout << "Whoops, this control has no implementation. "
+                       << "Contact the dev." 
+                       << std::endl;
     }
 }
 

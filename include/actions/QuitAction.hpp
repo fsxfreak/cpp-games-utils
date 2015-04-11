@@ -8,7 +8,7 @@ class QuitAction : public Action
 public:
     QuitAction(void *o);
     virtual void usage() const override;
-    virtual void execute() const override;
+    virtual void execute(const std::string& arg) const override;
 };
 
 #endif

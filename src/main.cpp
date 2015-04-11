@@ -8,9 +8,9 @@ int main()
     do 
     {
         input.updateInput();      
-
-
     } while (!input.isEndSignal);
+
+    std::cout << "Thanks for playing." << std::endl;
 
     return 0;
 }
