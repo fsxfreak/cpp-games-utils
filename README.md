@@ -1,5 +1,6 @@
-# isabel-game
-My version of my student's game. Teachers can learn too.
+# cpp-games-utils
+
+Comparing my implementation of my student's games with theirs.
 
 # License
 

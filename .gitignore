@@ -1,3 +1,7 @@
 *.o
 isabel-game.*
 isabel-game
+peter-game.*
+peter-game
+*.a
+curses.h
