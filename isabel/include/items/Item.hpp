@@ -8,11 +8,11 @@
 //drop item -> move item from Player to Room
 //use item -> destroy?
 
-//todo make item hashable
-
 class Item
 {
 public:
+	Item();
+	Item(const std::string& name);
     const std::string& getName() const;
 private:
     const std::string name;

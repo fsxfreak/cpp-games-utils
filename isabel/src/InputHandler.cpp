@@ -8,24 +8,14 @@
 #include <sstream>
 #include <utility>
 
-//no c++14 in gcc 4.8.1
-namespace stdex {
-
-template<typename T, typename... Args>
-std::unique_ptr<T> make_unique(Args&&... args) {
-    return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
-}
-
-}
 
 InputHandler::InputHandler()
 {
-    validInputs.emplace("survey", nullptr);
-    validInputs.emplace("enter", nullptr);
-    validInputs.emplace("use", nullptr);
-    validInputs.emplace("retrieve", nullptr);
-    validInputs.emplace("drop", nullptr);
-    validInputs.emplace("quit", stdex::make_unique<QuitAction>(this));
+}
+
+void InputHandler::addAction(const std::string& name, std::unique_ptr<Action> action)
+{
+    validInputs.emplace(name, std::move(action));
 }
 
 std::vector<std::string> tokenizeString(const std::string &str)
