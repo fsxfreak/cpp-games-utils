@@ -19,7 +19,7 @@ void Timer::toggle()
 void Timer::start() { startTime = hr::now(); }
 void Timer::stop() { endTime = hr::now(); }
 
-Timer::ms Timer::elapsed()
+float Timer::elapsed()
 {
     hr::time_point end;
     hr::time_point now = hr::now();
@@ -28,7 +28,7 @@ Timer::ms Timer::elapsed()
     else
         end = endTime;
 
-    return std::chrono::duration_cast<ms>(end - startTime);
+    return std::chrono::duration_cast<ms>(end - startTime).count() / 1000.f;
 }
 
 }

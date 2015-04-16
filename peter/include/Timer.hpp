@@ -14,7 +14,7 @@ public:
     void toggle();
 
     typedef std::chrono::milliseconds ms;
-    ms elapsed();
+    float elapsed();
 private:
     typedef std::chrono::high_resolution_clock hr;
     hr::time_point startTime;

@@ -17,6 +17,9 @@ int main()
     bool quit = false;
     while (!quit) 
     {
+        refresh();
+        erase();
+
         switch (input)
         {
         case ct::Inputs::QUIT: quit = true; break;
@@ -29,10 +32,7 @@ int main()
         default: break;
         }
 
-        std::cout << timer.elapsed().count() / 1000.0f << std::endl;
-        refresh();
-        erase();
-
+        std::cout << timer.elapsed() << std::endl;
         input = ct::checkInput();
     }
 
