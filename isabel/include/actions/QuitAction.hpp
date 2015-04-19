@@ -3,7 +3,7 @@
 
 #include <actions/Action.hpp>
 
-class QuitAction : public Action
+class QuitAction final : public Action
 {
 public:
     QuitAction(void *o);
