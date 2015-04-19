@@ -1,17 +1,19 @@
 #include <House.hpp>
 
+//will serve as a pseudo json file describing the house and the items it contains
+
 House::House()
 {
-    rooms.push_back( {"Living Room",    { Item() }} );
-    rooms.push_back( {"Dining Room",    { Item() }} );
-    rooms.push_back( {"Kitchen",        { Item() }} );
-    rooms.push_back( {"Hallway",        { Item() }} );
-    rooms.push_back( {"Garage",         { Item() }} );
-    rooms.push_back( {"Kyle\'s Room",   { Item() }} );
-    rooms.push_back( {"Leon\'s Room",   { Item() }} );
-    rooms.push_back( {"Bathroom",       { Item() }} );
-    rooms.push_back( {"Closet",         { Item() }} );
-    rooms.push_back( {"Master Bedroom", { Item() }} );
+    rooms.push_back( {"living room",    { Item() }} );
+    rooms.push_back( {"dining room",    { Item() }} );
+    rooms.push_back( {"kitchen",        { Item() }} );
+    rooms.push_back( {"hallway",        { Item() }} );
+    rooms.push_back( {"garage",         { Item() }} );
+    rooms.push_back( {"Kyle\'s room",   { Item() }} );
+    rooms.push_back( {"Leon\'s room",   { Item() }} );
+    rooms.push_back( {"bathroom",       { Item() }} );
+    rooms.push_back( {"closet",         { Item() }} );
+    rooms.push_back( {"master bedroom", { Item() }} );
 
     auto *livingRoom = &rooms[0];
     auto *diningRoom = &rooms[1];
@@ -57,4 +59,10 @@ House::House()
     closet->connectTo(hallway);
 
     masterbed->connectTo(hallway);
+}
+
+//mainly for testing, morerobust way of getting single room later
+std::vector<Room>& House::getRooms() 
+{
+    return rooms;
 }

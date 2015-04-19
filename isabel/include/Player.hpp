@@ -9,9 +9,12 @@ class Player
 {
 public:
 	Player(Room* startingRoom);
+
+	Room * const getCurrentRoom() const;
+
 private:
     std::vector<Item> inventory;
-    Room *currentRoom;
+    Room * const currentRoom;
 };
 
 #endif

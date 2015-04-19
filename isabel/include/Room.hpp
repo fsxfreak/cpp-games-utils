@@ -12,9 +12,11 @@ class Door;
 class Room
 {
 public:
-    Room(const std::string& name, const std::list<Item>& items);
+    Room(const std::string& name, std::list<Item> items);
 
     void printItems() const;
+    void printNeighbors();
+    void printPrettyName() const;
     const std::string& getName() const; //may not need this, may just need a pretty print
                                         //how to identify different rooms from each other?
 

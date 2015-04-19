@@ -9,6 +9,8 @@ class House
 {
 public:
     House();
+
+    std::vector<Room>& getRooms();
 private:
     std::vector<Room> rooms;
 };

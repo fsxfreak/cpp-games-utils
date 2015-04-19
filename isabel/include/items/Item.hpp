@@ -13,9 +13,15 @@ class Item
 public:
 	Item();
 	Item(const std::string& name);
+
+	Item(const Item& other) = default;
+	Item& operator=(const Item& other) = default;
+
     const std::string& getName() const;
 private:
     const std::string name;
+    const int uniqueID;
+	static int generateUID(const std::string& name);
 };
 
 #endif
