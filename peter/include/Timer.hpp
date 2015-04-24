@@ -2,6 +2,7 @@
 #define TIMER_HPP
 
 #include <chrono>
+#include <Times.hpp>
 
 namespace ct
 {
@@ -9,7 +10,7 @@ namespace ct
 class Timer
 {
 public:
-    Timer();
+    Timer(ct::Times * const times);
 
     void toggle();
 
@@ -23,6 +24,8 @@ private:
     void start();
     void stop();
     bool running;
+
+    ct::Times * const times;
 };
 
 }

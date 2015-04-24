@@ -3,21 +3,30 @@
 namespace ct
 {
 
-Timer::Timer() 
+Timer::Timer(ct::Times * const times) 
     : startTime(Timer::hr::time_point::min())
     , endTime(Timer::hr::time_point::max())
     , running(false)
+    , times(times)
 { }
 
 void Timer::toggle()
 {
     if (!running) start(); else stop();
-
-    running = !running;
 }
 
-void Timer::start() { startTime = hr::now(); }
-void Timer::stop() { endTime = hr::now(); }
+void Timer::start() 
+{ 
+    startTime = hr::now(); 
+    running = true;
+}
+void Timer::stop() 
+{ 
+    endTime = hr::now(); 
+    running = false;
+
+    times->log(elapsed());
+}
 
 float Timer::elapsed()
 {

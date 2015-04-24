@@ -2,6 +2,7 @@
 #include <iostream>
 #include <Input.hpp>
 #include <Timer.hpp>
+#include <Times.hpp>
 
 int main()
 {
@@ -11,7 +12,8 @@ int main()
     nodelay(stdscr, true);
     scrollok(stdscr, true);
 
-    ct::Timer timer;
+    ct::Times times;
+    ct::Timer timer(&times);
 
     ct::Inputs input = ct::checkInput();
     bool quit = false;
@@ -36,7 +38,8 @@ int main()
         input = ct::checkInput();
     }
 
-    std::cout << "Quitting timer." << std::endl;
     endwin();
+    std::cout << "Quitting timer." << std::endl;
+
     return 0;
 }
