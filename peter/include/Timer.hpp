@@ -14,7 +14,7 @@ public:
 
     void toggle();
 
-    typedef std::chrono::milliseconds ms;
+    typedef std::chrono::microseconds time_unit;
     float elapsed();
     bool isRunning();
 private:

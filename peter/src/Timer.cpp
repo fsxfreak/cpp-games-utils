@@ -38,7 +38,7 @@ float Timer::elapsed()
     else
         end = endTime;
 
-    return std::chrono::duration_cast<ms>(end - startTime).count() / 1000.f;
+    return std::chrono::duration_cast<time_unit>(end - startTime).count() / 1000000.f;
 }
 
 bool Timer::isRunning() { return running; }

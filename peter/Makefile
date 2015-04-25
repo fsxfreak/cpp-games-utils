@@ -12,13 +12,12 @@ SRCDIRS := $(shell find . -name '*.$(SRCEXT)' -exec dirname {} \; | uniq)
 OBJS    := $(patsubst %.$(SRCEXT),$(OBJDIR)/%.o,$(SRCS))
 
 INCLUDE = -I./include
-CFLAGS  = -Wall -Werror -std=c++11 -c $(INCLUDE)
+CFLAGS  = -Wall -Werror -std=c++11 -c -g $(INCLUDE)
 
 all: $(APP)
  
 $(APP): buildrepo $(OBJS)
 	$(CC) $(OBJS) $(LIBDIR) -o $@ $(LIB)
-	strip *.exe
  
 $(OBJDIR)/%.o: %.$(SRCEXT)
 	$(CC) $(CFLAGS) $< -o $@ 

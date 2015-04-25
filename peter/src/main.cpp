@@ -3,6 +3,8 @@
 #include <Input.hpp>
 #include <Timer.hpp>
 #include <Times.hpp>
+#include <chrono>
+
 
 int main()
 {
@@ -11,6 +13,12 @@ int main()
     keypad(stdscr, true);
     nodelay(stdscr, true);
     scrollok(stdscr, true);
+    curs_set(false);
+
+    //TODO printer class with support for printing to different regions
+    int maxRows;
+    int maxCols;
+    getmaxyx(stdscr, maxRows, maxCols);
 
     ct::Times times;
     ct::Timer timer(&times);
@@ -20,7 +28,7 @@ int main()
     while (!quit) 
     {
         refresh();
-        if (timer.isRunning()) erase();
+        erase();
 
         switch (input)
         {
@@ -34,8 +42,13 @@ int main()
         default: break;
         }
 
-        std::cout << timer.elapsed() << std::endl;
-        std::cout << times.getAverageOf(static_cast<unsigned int>(5)) << "avg" << std::endl;
+        mvprintw((maxRows / 2) - 5, (maxCols / 2) - 3, "%f", timer.elapsed());
+        float five = times.getAverageOf(static_cast<unsigned int>(5));
+        float twelve = times.getAverageOf(static_cast<unsigned int>(12));
+        float hundred = times.getAverageOf(static_cast<unsigned int>(100));
+        mvprintw((maxRows / 2) + 1, (maxCols / 2) - 13, "AVG5: %f", five);
+        mvprintw((maxRows / 2) + 2, (maxCols / 2) - 13, "AVG12: %f", twelve);
+        mvprintw((maxRows / 2) + 3, (maxCols / 2) - 13, "AVG100: %f", hundred);
 
         input = ct::checkInput();
     }
