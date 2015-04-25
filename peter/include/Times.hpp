@@ -10,14 +10,14 @@ namespace ct
 class Times
 {
 public:
-	Times();	//TODO parse the saved times file into historical
-	~Times();	//TOOD append session times to file
+	Times();
+	~Times();	
 	void log(float seconds);
 
-	float getAverageOf(unsigned int n);
-	float getBestSingle();
-	float getWorstSingle();
-	float getStdDevSession();
+	float getAverageOf(unsigned int n) const;
+	float getBestSingle() const;
+	float getWorstSingle() const;
+	float getStdDevSession() const;
 private:
 	std::vector<float> historical;
 	std::vector<float> session;
