@@ -39,12 +39,14 @@ void Room::printNeighbors()
     if (doors.size() == 0)
         return;
 
-    std::cout << "There are " << doors.size() 
-              << " doors in this room leading to ";
+    std::string verb = doors.size() > 1 ? "are " : "is ";
+    std::string doorNoun = doors.size() > 1 ? " doors" : " door";
+    std::cout << "There " << verb << doors.size() 
+              << doorNoun << " in this room leading to ";
 
     for (unsigned int i = 0; i < doors.size(); i++)
     {
-        if (i == doors.size() - 1)
+        if (i == doors.size() - 1 && doors.size() != 1)
             std::cout << "and ";
 
         std::cout << transformSpecialName(doors[i].getNextRoom(this)->getName())
@@ -88,4 +90,15 @@ void Room::connectTo(Room *other)
 
         doors.emplace_back(this, other);
     }
+}
+
+std::vector<Room*> Room::getNeighbors() const
+{
+    std::vector<Room*> neighbors;
+    std::for_each (doors.begin(), doors.end(),
+        [&] (const Door& door) {
+            neighbors.push_back(door.getNextRoom(this));
+        }
+    );
+    return neighbors;
 }

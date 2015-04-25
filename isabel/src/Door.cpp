@@ -6,7 +6,7 @@ Door::Door(Room* const left, Room* const right)
     : isUnlocked(false), left(left), right(right)
 { }
 
-Room* Door::getNextRoom(Room *fromThis) const
+Room* Door::getNextRoom(const Room *fromThis) const
 {
     if      (fromThis == left)  return right;
     else if (fromThis == right) return left;

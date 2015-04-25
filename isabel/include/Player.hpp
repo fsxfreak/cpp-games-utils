@@ -8,13 +8,13 @@
 class Player
 {
 public:
-	Player(Room* startingRoom);
+	Player() = default;
 
-	Room * const getCurrentRoom() const;
-
+	Room* getCurrentRoom() const;
+	void moveTo(Room* room);
 private:
     std::vector<Item> inventory;
-    Room * const currentRoom;
+    Room* currentRoom = nullptr;
 };
 
 #endif

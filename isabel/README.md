@@ -2,6 +2,7 @@
 My version of my student's game. Teachers can learn too.
 
 # notes
+- when in room with one door, pretty print out is grammatically incorrect
 
 ### representing items
 - have one overall item class

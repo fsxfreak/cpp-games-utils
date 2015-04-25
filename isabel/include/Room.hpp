@@ -26,6 +26,8 @@ public:
     void leaveItem(Item item);
 
     void connectTo(Room *other);
+
+    std::vector<Room*> getNeighbors() const;
 private:
     std::list<Item> items;
     std::vector<Door> doors;

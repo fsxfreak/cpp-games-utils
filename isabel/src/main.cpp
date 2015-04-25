@@ -5,6 +5,7 @@
 #include <memory>
 #include <utility>
 
+#include <actions/EnterAction.hpp>
 #include <actions/QuitAction.hpp>
 #include <actions/SurveyAction.hpp>
 
@@ -15,10 +16,10 @@ namespace stdex {
 	    return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
 	}
 }
-void generateControls(InputHandler& input, Player &player)
+void generateControls(InputHandler& input, Player &player, House &house)
 {
     input.addAction("survey", stdex::make_unique<SurveyAction>(&player));
-    input.addAction("enter", nullptr);
+    input.addAction("enter", stdex::make_unique<EnterAction>(&player, &house));
     input.addAction("use", nullptr);
     input.addAction("retrieve", nullptr);
     input.addAction("drop", nullptr);
@@ -28,11 +29,12 @@ void generateControls(InputHandler& input, Player &player)
 int main()
 {
     House house;
-    Player player(&house.getRooms()[0]);
+    Player player;
+    player.moveTo(house.getRoom("living room"));
 
     InputHandler input;
-    generateControls(input, player);
-
+    generateControls(input, player, house);
+    
     do 
     {
         input.updateInput();

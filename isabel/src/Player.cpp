@@ -1,7 +1,5 @@
 #include <Player.hpp>
 
-Player::Player(Room* startingRoom)
-	: currentRoom(startingRoom)
-{}
+Room* Player::getCurrentRoom() const { return currentRoom; }
 
-Room * const Player::getCurrentRoom() const { return currentRoom; }
+void Player::moveTo(Room* room) { currentRoom = room; }

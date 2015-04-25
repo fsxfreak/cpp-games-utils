@@ -20,11 +20,12 @@ void InputHandler::addAction(const std::string& name, std::unique_ptr<Action> ac
 
 std::vector<std::string> tokenizeString(const std::string &str)
 {
-    std::stringstream stream(str);
-    std::istream_iterator<std::string> streamIt(stream);
-    std::istream_iterator<std::string> end;
+    unsigned int index = str.find(' ');
 
-    return std::vector<std::string>(streamIt, end);
+    if (index != std::string::npos)
+        return { str.substr(0, index), str.substr(index + 1, str.size()) };
+
+    return { str };
 }
 
 void InputHandler::updateInput()
@@ -41,12 +42,6 @@ void InputHandler::updateInput()
     }
 
     std::vector<std::string> tokens = tokenizeString(input);
-
-    if (tokens.size() > 2)
-    {
-        std::cout << "You inputted too many commands. Limit two." << std::endl;
-        return;
-    }
 
     const std::string command = tokens[0];
     const std::string argument = tokens.size() == 2 ? tokens[1] : "";
