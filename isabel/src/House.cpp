@@ -1,4 +1,7 @@
+#include <algorithm>
 #include <House.hpp>
+#include <string>
+#include <iostream>
 
 //will serve as a pseudo json file describing the house and the items it contains
 
@@ -61,8 +64,51 @@ House::House()
     masterbed->connectTo(hallway);
 }
 
-//mainly for testing, morerobust way of getting single room later
-std::vector<Room>& House::getRooms() 
+Room* House::getRoom(const std::string& roomName, Room* fromRoom)
 {
-    return rooms;
+    auto lowercase = 
+        [] (std::string str) -> std::string {
+            std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+            return str;
+        };
+
+    auto insensitiveCompare =
+        [&] (std::string left, std::string right) -> bool {
+            char sanitize[] = " \'";
+
+            for (int i = 0; i < 2; i++)
+            {
+                left.erase(std::remove(left.begin(), left.end(), sanitize[i]), left.end());
+                right.erase(std::remove(right.begin(), right.end(), sanitize[i]), right.end());
+            }
+
+            left = lowercase(left);
+            right = lowercase(right);
+
+            return left.compare(right) == 0;
+        };
+
+    //no room specified, can find whole house
+    if (!fromRoom)
+    {
+        auto itend = rooms.end();
+        for (auto it = rooms.begin(); it != itend; ++it)
+        {
+            if (insensitiveCompare(roomName, it->getName()))
+                return &(*it);
+        } 
+    }
+    else    //room specified, constrained to what doors room is connected to
+    {
+        std::vector<Room*> validSearchSpace = fromRoom->getNeighbors();
+        auto itend = validSearchSpace.end();
+        for (auto it = validSearchSpace.begin(); it != itend; ++it)
+        {
+            if (insensitiveCompare(roomName, (*it)->getName()))
+                return *it;
+        }
+    }
+    
+
+    return nullptr;
 }

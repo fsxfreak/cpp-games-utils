@@ -9,8 +9,8 @@ class House
 {
 public:
     House();
-
-    std::vector<Room>& getRooms();
+    
+    Room* getRoom(const std::string& roomName, Room* fromRoom = nullptr);
 private:
     std::vector<Room> rooms;
 };
