@@ -53,6 +53,10 @@ int main()
         mvprintw((maxRows / 2) + 2, (maxCols / 2) - 13, "AVG12: %f", twelve);
         mvprintw((maxRows / 2) + 3, (maxCols / 2) - 13, "AVG100: %f", hundred);
 
+        mvprintw((maxRows / 2) + 5, (maxCols / 2) + 10, "Best: %f", times.getBestSingle());
+        mvprintw((maxRows / 2) + 6, (maxCols / 2) + 10, "Worst: %f", times.getWorstSingle());
+        mvprintw((maxRows / 2) + 7, (maxCols / 2) + 10, "Stddev: %f", times.getStdDevSession());
+
         input = ct::checkInput();
     }
 

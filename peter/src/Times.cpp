@@ -1,3 +1,4 @@
+#include <cfloat>
 #include <Times.hpp>
 #include <fstream>
 #include <algorithm>
@@ -61,6 +62,45 @@ float Times::getAverageOf(unsigned int n)
 	for (auto &e : copy)
 		sum += e;
 	return copy.size() != 0 ? sum / copy.size() : 0;
+}
+
+float Times::getBestSingle() 
+{
+	float bestHistorical = *std::min_element(historical.begin(), historical.end());
+	auto sess = std::min_element(session.begin(), session.end());
+	float bestSession = FLT_MAX;
+	if (sess != session.end())
+		bestSession = *sess;
+	return bestHistorical < bestSession ? bestHistorical : bestSession;
+}
+
+float Times::getWorstSingle() 
+{
+	float worstHistorical = *std::max_element(historical.begin(), historical.end());
+	auto sess = std::max_element(session.begin(), session.end());
+	float worstSession = FLT_MIN;
+	if (sess != session.end())
+		worstSession = *sess;
+	return worstHistorical > worstSession ? worstHistorical : worstSession;
+}
+
+float Times::getStdDevSession()
+{
+	if (session.size() == 0)
+		return 0;
+
+	float mean = 0;
+	for (auto &e : session) mean += e;
+	mean /= session.size();
+
+	float stddev = 0;
+	for (auto &e : session)
+	{
+		stddev += (e - mean) * (e - mean);
+	}
+	stddev /= session.size();
+
+	return stddev;
 }
 
 }

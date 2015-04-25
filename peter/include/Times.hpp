@@ -15,6 +15,9 @@ public:
 	void log(float seconds);
 
 	float getAverageOf(unsigned int n);
+	float getBestSingle();
+	float getWorstSingle();
+	float getStdDevSession();
 private:
 	std::vector<float> historical;
 	std::vector<float> session;
