@@ -34,10 +34,6 @@ int main()
         {
         case ct::Inputs::QUIT: quit = true; break;
         case ct::Inputs::TOGGLE_TIMER: timer.toggle(); break;
-        case ct::Inputs::VIEW_AVERAGES: break;
-        case ct::Inputs::UP: break;
-        case ct::Inputs::DOWN: break;
-        case ct::Inputs::SELECT: break;
         case ct::Inputs::INVALID: ct::printAvailableInputs(); break;
         default: break;
         }

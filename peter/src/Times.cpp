@@ -2,19 +2,34 @@
 #include <fstream>
 #include <algorithm>
 #include <iostream>
+#include <string>
+#include <sstream>
 
 namespace ct
 {
 
 Times::Times()
 {
-	historical.push_back(2.21223f);
-	historical.push_back(2.232323f);
+	std::ifstream savedTimes(filename, std::ifstream::in);
+	std::string allSavedTimes;
+	std::getline(savedTimes, allSavedTimes);
+
+	float element;
+	std::stringstream ss(allSavedTimes);
+	while (ss >> element)
+	{
+		historical.push_back(element);
+		if (ss.peek() == ',') ss.ignore();
+	}
+	savedTimes.close();
 }
 
 Times::~Times()
 {
-
+	std::ofstream savedTimes(filename, std::ofstream::out | std::ofstream::app);
+	for (auto &e : session)
+		savedTimes << e << ',';
+	savedTimes.close();
 }
 
 void Times::log(float seconds) { session.push_back(seconds); }
@@ -42,7 +57,7 @@ float Times::getAverageOf(unsigned int n)
 		copy.erase(std::min_element(copy.begin(), copy.end()));
 	}
 
-	float sum;
+	float sum = 0;
 	for (auto &e : copy)
 		sum += e;
 	return copy.size() != 0 ? sum / copy.size() : 0;

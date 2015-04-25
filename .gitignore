@@ -2,6 +2,7 @@ isabel/isabel-game.*
 isabel/isabel-game
 peter/peter-game.*
 peter/peter-game
+peter/saved-times.txt
 **/*.a
 **/curses.h
 **/*.o

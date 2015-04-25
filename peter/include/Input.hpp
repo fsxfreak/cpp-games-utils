@@ -8,10 +8,6 @@ enum class Inputs
 {
     QUIT,
     TOGGLE_TIMER,
-    VIEW_AVERAGES,
-    UP,
-    DOWN,
-    SELECT,
     INVALID,
     CONTINUE
 };
