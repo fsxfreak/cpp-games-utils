@@ -16,6 +16,7 @@ public:
 
     typedef std::chrono::milliseconds ms;
     float elapsed();
+    bool isRunning();
 private:
     typedef std::chrono::high_resolution_clock hr;
     hr::time_point startTime;

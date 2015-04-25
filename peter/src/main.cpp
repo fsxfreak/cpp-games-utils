@@ -20,7 +20,7 @@ int main()
     while (!quit) 
     {
         refresh();
-        erase();
+        if (timer.isRunning()) erase();
 
         switch (input)
         {
@@ -35,6 +35,8 @@ int main()
         }
 
         std::cout << timer.elapsed() << std::endl;
+        std::cout << times.getAverageOf(static_cast<unsigned int>(5)) << "avg" << std::endl;
+
         input = ct::checkInput();
     }
 

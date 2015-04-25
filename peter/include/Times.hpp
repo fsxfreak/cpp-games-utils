@@ -14,6 +14,7 @@ public:
 	~Times();	//TOOD append session times to file
 	void log(float seconds);
 
+	float getAverageOf(unsigned int n);
 private:
 	std::vector<float> historical;
 	std::vector<float> session;
@@ -21,7 +22,7 @@ private:
 	const std::string filename = "saved-times.txt";
 
 	//TODO function that parses the seconds and converts into HH:MM:SS format?
-	float getAverageOf(int n);
+	
 };
 
 }

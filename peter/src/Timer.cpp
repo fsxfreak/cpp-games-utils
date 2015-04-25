@@ -20,8 +20,9 @@ void Timer::start()
     startTime = hr::now(); 
     running = true;
 }
+
 void Timer::stop() 
-{ 
+{
     endTime = hr::now(); 
     running = false;
 
@@ -39,5 +40,7 @@ float Timer::elapsed()
 
     return std::chrono::duration_cast<ms>(end - startTime).count() / 1000.f;
 }
+
+bool Timer::isRunning() { return running; }
 
 }
