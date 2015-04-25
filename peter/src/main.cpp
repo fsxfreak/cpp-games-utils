@@ -1,6 +1,7 @@
 #include <curses.h>
 #include <iostream>
 #include <Input.hpp>
+#include <Scramble.hpp>
 #include <Timer.hpp>
 #include <Times.hpp>
 #include <chrono>
@@ -22,6 +23,7 @@ int main()
 
     ct::Times times;
     ct::Timer timer(&times);
+    std::string currentScramble = ct::generateScramble();
 
     ct::Inputs input = ct::checkInput();
     bool quit = false;
@@ -33,11 +35,16 @@ int main()
         switch (input)
         {
         case ct::Inputs::QUIT: quit = true; break;
-        case ct::Inputs::TOGGLE_TIMER: timer.toggle(); break;
+        case ct::Inputs::TOGGLE_TIMER: 
+            timer.toggle(); 
+            if (!timer.isRunning())
+                currentScramble = ct::generateScramble();
+            break;
         case ct::Inputs::INVALID: ct::printAvailableInputs(); break;
         default: break;
         }
 
+        mvprintw((maxRows / 2) - 10, (maxCols / 2) - 40, "%s", currentScramble.c_str());
         mvprintw((maxRows / 2) - 5, (maxCols / 2) - 3, "%f", timer.elapsed());
         float five = times.getAverageOf(static_cast<unsigned int>(5));
         float twelve = times.getAverageOf(static_cast<unsigned int>(12));
