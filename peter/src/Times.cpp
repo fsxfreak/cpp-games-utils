@@ -99,6 +99,7 @@ float Times::getStdDevSession()
 		stddev += (e - mean) * (e - mean);
 	}
 	stddev /= session.size();
+	stddev = sqrt(stddev);
 
 	return stddev;
 }

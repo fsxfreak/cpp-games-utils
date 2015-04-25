@@ -31,7 +31,8 @@ std::string generateScramble()
 	{
 		int randIndex = dist(mt);
 		if ((lastRandIndex % 3 == 0 && (randIndex - 1) % 3 == 0)
-		 || (randIndex % 3 == 0 && (lastRandIndex - 1) % 3 == 0))
+		 || (randIndex % 3 == 0 && (lastRandIndex - 1) % 3 == 0)
+		 || (lastRandIndex == randIndex))
 		{
 			i--;
 			continue;
