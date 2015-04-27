@@ -17,12 +17,12 @@ public:
     Room(Room&& other);
 
     void printItems() const;
-    void printNeighbors();
+    void printNeighbors() const;
     void printPrettyName() const;
     const std::string& getName() const;
 
     //somehow return item by move?
-    std::unique_ptr<Item> retrieveItem(const std::string& item);
+    std::unique_ptr<Item> retrieveItem(const std::string& itemName);
     //somehow take item by move
     void leaveItem(std::unique_ptr<Item> item);
 

@@ -7,6 +7,7 @@
 #include <UniqueUtil.hpp>
 
 #include <actions/EnterAction.hpp>
+#include <actions/InventoryAction.hpp>
 #include <actions/QuitAction.hpp>
 #include <actions/SurveyAction.hpp>
 #include <actions/RetrieveItemAction.hpp>
@@ -19,6 +20,7 @@ void generateControls(InputHandler& input, Player &player, House &house)
     input.addAction("retrieve", stdex::make_unique<RetrieveItemAction>(&player));
     input.addAction("drop", nullptr);
     input.addAction("quit", stdex::make_unique<QuitAction>(&input));
+    input.addAction("inventory", stdex::make_unique<InventoryAction>(&player));
 }
 
 int main()
