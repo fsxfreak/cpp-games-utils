@@ -2,7 +2,8 @@
 My version of my student's game. Teachers can learn too.
 
 # notes
-- when in room with one door, pretty print out is grammatically incorrect
+- problem! rooms create their own doors, which differ by left/right room pointer
+	- when door is already created, give other room the door too?
 
 ### representing items
 - have one overall item class
