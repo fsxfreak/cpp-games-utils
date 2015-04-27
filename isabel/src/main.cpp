@@ -4,24 +4,19 @@
 #include <Player.hpp>
 #include <memory>
 #include <utility>
+#include <UniqueUtil.hpp>
 
 #include <actions/EnterAction.hpp>
 #include <actions/QuitAction.hpp>
 #include <actions/SurveyAction.hpp>
+#include <actions/RetrieveItemAction.hpp>
 
-//no c++14 in gcc 4.8.1
-namespace stdex {
-	template<typename T, typename... Args>
-	std::unique_ptr<T> make_unique(Args&&... args) {
-	    return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
-	}
-}
 void generateControls(InputHandler& input, Player &player, House &house)
 {
     input.addAction("survey", stdex::make_unique<SurveyAction>(&player));
     input.addAction("enter", stdex::make_unique<EnterAction>(&player, &house));
     input.addAction("use", nullptr);
-    input.addAction("retrieve", nullptr);
+    input.addAction("retrieve", stdex::make_unique<RetrieveItemAction>(&player));
     input.addAction("drop", nullptr);
     input.addAction("quit", stdex::make_unique<QuitAction>(&input));
 }
