@@ -9,8 +9,6 @@ public:
     RetrieveItemAction(void *o);
     virtual void usage() const override;
     virtual void execute(const std::string& arg) const override;
-private:
-    
 };
 
 #endif

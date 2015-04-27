@@ -46,6 +46,10 @@ void InputHandler::updateInput()
     const std::string command = tokens[0];
     const std::string argument = tokens.size() == 2 ? tokens[1] : "";
 
+    //just for myself
+    if (command.compare("make") == 0)
+        std::cerr << "holy balls quit the program before compiling again" << std::endl;
+
     auto it = validInputs.find(command);
     if (it == validInputs.end())
     {

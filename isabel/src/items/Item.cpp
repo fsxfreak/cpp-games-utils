@@ -30,7 +30,7 @@ int Item::generateUID(const std::string& name)
 }
 
 Item::Item() : name("default"), uniqueID(generateUID(name)) {}
-Item::Item(const std::string& name) : name(name), uniqueID(generateUID(name)) {}
-Item::Item(Item&& other) : name(std::move(other.name)), uniqueID(std::move(other.uniqueID)) {}
+Item::Item(const std::string& name) : name(name), uniqueID(generateUID(name)) { }
+Item::Item(Item&& other) : name(std::move(other.name)), uniqueID(std::move(other.uniqueID)) { }
 const std::string& Item::getName() const { return name; }
 const int Item::getUID() const { return uniqueID; }

@@ -49,7 +49,7 @@ House::House()
     rooms.push_back(constructRoom("Leon\'s room", "computer", "book", "rocket light"));
     rooms.push_back(constructRoom("bathroom", "toilet paper", "toothpaste"));
     rooms.push_back(constructRoom("closet", "flashlight", "battery"));
-    rooms.push_back(constructRoom("master bedroom", "lamp", "laptop", "documents"));
+    rooms.push_back(constructRoom("master bedroom", "lamp", "laptop", "pile of documents"));
 
     auto *livingRoom = &rooms[0];
     auto *diningRoom = &rooms[1];
