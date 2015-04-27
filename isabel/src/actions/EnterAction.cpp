@@ -9,14 +9,14 @@ void EnterAction::usage() const
 
 void EnterAction::execute(const std::string& arg) const
 {
-	Player* player = static_cast<Player*>(obj);
+    Player* player = static_cast<Player*>(obj);
 
-	Room *dest = house->getRoom(arg, player->getCurrentRoom());
+    Room *dest = house->getRoom(arg, player->getCurrentRoom());
 
-	if (!dest)
-	{
-		std::cout << "The room \'" << arg << "\' was not found." << std::endl;
-		return;
-	}
-	static_cast<Player*>(obj)->moveTo(dest);
+    if (!dest)
+    {
+        std::cout << "The room \'" << arg << "\' was not found." << std::endl;
+        return;
+    }
+    static_cast<Player*>(obj)->moveTo(dest);
 }

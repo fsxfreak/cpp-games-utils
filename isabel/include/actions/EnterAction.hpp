@@ -7,11 +7,11 @@
 class EnterAction : public Action
 {
 public:
-	EnterAction(void *o, House* house);
-	virtual void usage() const override;
-	virtual void execute(const std::string& arg) const override;
+    EnterAction(void *o, House* house);
+    virtual void usage() const override;
+    virtual void execute(const std::string& arg) const override;
 private:
-	House* house;
+    House* house;
 };
 
 #endif
