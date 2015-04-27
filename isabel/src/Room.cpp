@@ -104,7 +104,19 @@ void Room::leaveItem(std::unique_ptr<Item> item)
     items.push_back(std::move(item));
 }
 
-void Room::connectTo(Room *other)
+const int Room::getUIDForItem(const std::string& itemName) const
+{
+    std::list<std::unique_ptr<Item>>::const_iterator item
+        = std::find_if(items.begin(), items.end(),
+            [&] (const std::unique_ptr<Item>& item) -> bool {
+                return itemName.compare(item->getName()) == 0;
+            }
+        );
+
+    return item != items.end() ? (*item)->getUID() : -1;
+}
+
+std::shared_ptr<Door> Room::connectTo(Room *other)
 {
     std::vector<std::shared_ptr<Door>> otherDoors = other->doors;
 
@@ -125,20 +137,43 @@ void Room::connectTo(Room *other)
         if (std::find_if (doors.begin(), doors.end(), iAlreadyHaveDoor) == doors.end())
             doors.push_back(std::shared_ptr<Door>(*existingDoor));
         
-        return;
+        return *existingDoor;
     }
 
     doors.emplace_back(std::make_shared<Door>(this, other));
-    other->connectTo(this);
+
+    return other->connectTo(this);
 }
 
-std::vector<Room*> Room::getNeighbors() const
+std::shared_ptr<Door> Room::getDoorTo(const std::string& roomName) const
 {
-    std::vector<Room*> neighbors;
-    std::for_each (doors.begin(), doors.end(),
+    auto lowercase = 
+        [] (std::string str) -> std::string {
+            std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+            return str;
+        };
+
+    auto insensitiveCompare =
+        [&] (std::string left, std::string right) -> bool {
+            char sanitize[] = " \'";
+
+            for (int i = 0; i < 2; i++)
+            {
+                left.erase(std::remove(left.begin(), left.end(), sanitize[i]), left.end());
+                right.erase(std::remove(right.begin(), right.end(), sanitize[i]), right.end());
+            }
+
+            left = lowercase(left);
+            right = lowercase(right);
+
+            return left.compare(right) == 0;
+        };
+
+    auto doorIterator = std::find_if (doors.begin(), doors.end(),
         [&] (const std::shared_ptr<Door>& door) {
-            neighbors.push_back(door->getNextRoom(this));
+            return insensitiveCompare(door->getNextRoom(this)->getName(), roomName);
         }
     );
-    return neighbors;
+
+    return doorIterator != doors.end() ? *doorIterator : nullptr;
 }

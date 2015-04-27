@@ -21,14 +21,12 @@ public:
     void printPrettyName() const;
     const std::string& getName() const;
 
-    //somehow return item by move?
     std::unique_ptr<Item> retrieveItem(const std::string& itemName);
-    //somehow take item by move
     void leaveItem(std::unique_ptr<Item> item);
+    const int getUIDForItem(const std::string& itemName) const; 
 
-    void connectTo(Room *other);
-
-    std::vector<Room*> getNeighbors() const;
+    std::shared_ptr<Door> connectTo(Room *other);
+    std::shared_ptr<Door> getDoorTo(const std::string& roomName) const;
 private:
     std::list<std::unique_ptr<Item>> items;
     std::vector<std::shared_ptr<Door>> doors;

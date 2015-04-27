@@ -12,10 +12,10 @@
 #include <actions/SurveyAction.hpp>
 #include <actions/RetrieveItemAction.hpp>
 
-void generateControls(InputHandler& input, Player &player, House &house)
+void generateControls(InputHandler& input, Player &player)
 {
     input.addAction("survey", stdex::make_unique<SurveyAction>(&player));
-    input.addAction("enter", stdex::make_unique<EnterAction>(&player, &house));
+    input.addAction("enter", stdex::make_unique<EnterAction>(&player));
     input.addAction("use", nullptr);
     input.addAction("retrieve", stdex::make_unique<RetrieveItemAction>(&player));
     input.addAction("drop", nullptr);
@@ -30,7 +30,7 @@ int main()
     player.moveTo(house.getRoom("living room"));
 
     InputHandler input;
-    generateControls(input, player, house);
+    generateControls(input, player);
     
     do 
     {

@@ -10,7 +10,7 @@ class House
 public:
     House();
     
-    Room* getRoom(const std::string& roomName, Room* fromRoom = nullptr);
+    Room* getRoom(const std::string& roomName);
 private:
     std::vector<Room> rooms;
 };

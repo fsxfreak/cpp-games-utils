@@ -13,10 +13,12 @@ class Door
 public:
     Door(Room* const left, Room* const right);
     void unlock(const Item& withItem);
-    Room* getNextRoom(const Room *fromThis) const;
+    bool locked();
+    void require(int itemUID);
+    const Room* getNextRoom(const Room* fromThis) const;
 private:
     bool isUnlocked;
-    //TODO add item requirement to unlock
+    int lockRequirement;
 
     Room *const left;
     Room *const right;

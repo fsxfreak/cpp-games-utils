@@ -79,7 +79,7 @@ House::House()
     hallway->connectTo(kitchen);
     hallway->connectTo(garage);
     hallway->connectTo(kyle);
-    hallway->connectTo(leon);
+    hallway->connectTo(leon)->require(masterbed->getUIDForItem("laptop"));
     hallway->connectTo(bathroom);
     hallway->connectTo(closet);
     hallway->connectTo(masterbed);
@@ -97,7 +97,7 @@ House::House()
     masterbed->connectTo(hallway);
 }
 
-Room* House::getRoom(const std::string& roomName, Room* fromRoom)
+Room* House::getRoom(const std::string& roomName)
 {
     auto lowercase = 
         [] (std::string str) -> std::string {
@@ -121,27 +121,12 @@ Room* House::getRoom(const std::string& roomName, Room* fromRoom)
             return left.compare(right) == 0;
         };
 
-    //no room specified, can find whole house
-    if (!fromRoom)
+    auto itend = rooms.end();
+    for (auto it = rooms.begin(); it != itend; ++it)
     {
-        auto itend = rooms.end();
-        for (auto it = rooms.begin(); it != itend; ++it)
-        {
-            if (insensitiveCompare(roomName, it->getName()))
-                return &(*it);
-        } 
+        if (insensitiveCompare(roomName, it->getName()))
+            return &(*it);
     }
-    else    //room specified, constrained to what doors room is connected to
-    {
-        std::vector<Room*> validSearchSpace = fromRoom->getNeighbors();
-        auto itend = validSearchSpace.end();
-        for (auto it = validSearchSpace.begin(); it != itend; ++it)
-        {
-            if (insensitiveCompare(roomName, (*it)->getName()))
-                return *it;
-        }
-    }
-    
 
     return nullptr;
 }

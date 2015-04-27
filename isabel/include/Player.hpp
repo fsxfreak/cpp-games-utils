@@ -13,11 +13,11 @@ public:
 	void give(std::unique_ptr<Item> item);
 	const std::vector<std::string> getItemNames() const;
 
-	Room* getCurrentRoom() const;
-	void moveTo(Room* room);
+	const Room* getCurrentRoom() const;
+	void moveTo(const Room* room);
 private:
     std::vector<std::unique_ptr<Item>> inventory;
-    Room* currentRoom = nullptr;
+    const Room* currentRoom = nullptr;
 };
 
 #endif

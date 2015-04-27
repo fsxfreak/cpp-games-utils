@@ -15,5 +15,5 @@ const std::vector<std::string> Player::getItemNames() const
 	return itemNames;
 }
 
-Room* Player::getCurrentRoom() const { return currentRoom; }
-void Player::moveTo(Room* room) { currentRoom = room; }
+const Room* Player::getCurrentRoom() const { return currentRoom; }
+void Player::moveTo(const Room* room) { currentRoom = room; }
