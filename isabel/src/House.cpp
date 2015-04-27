@@ -3,20 +3,53 @@
 #include <string>
 #include <iostream>
 
+#include <UniqueUtil.hpp>
+#include <memory>
+
 //will serve as a pseudo json file describing the house and the items it contains
+
+/*
+ * need these below variadic functions because no
+ * std::initializier_list support for unmovable types
+ */
+template <typename T>
+void addItem(std::list<std::unique_ptr<Item>>& roomItems
+           , T itemName)
+{
+    roomItems.push_back(stdex::make_unique<Item>(itemName));
+}
+
+template <typename T, typename... Args>
+void addItem(std::list<std::unique_ptr<Item>>& roomItems
+           , T itemName
+           , Args&&... restItems)
+{
+    addItem(roomItems, itemName);
+    addItem(roomItems, restItems...);
+}
+
+template <typename T, typename... Args>
+Room constructRoom(const std::string &name
+                 , T itemName
+                 , Args&&... restItems)
+{
+    std::list<std::unique_ptr<Item>> items;
+    addItem(items, itemName, restItems...);
+    return Room(name, std::move(items));
+}
 
 House::House()
 {
-    rooms.push_back( {"living room",    { Item() }} );
-    rooms.push_back( {"dining room",    { Item() }} );
-    rooms.push_back( {"kitchen",        { Item() }} );
-    rooms.push_back( {"hallway",        { Item() }} );
-    rooms.push_back( {"garage",         { Item() }} );
-    rooms.push_back( {"Kyle\'s room",   { Item() }} );
-    rooms.push_back( {"Leon\'s room",   { Item() }} );
-    rooms.push_back( {"bathroom",       { Item() }} );
-    rooms.push_back( {"closet",         { Item() }} );
-    rooms.push_back( {"master bedroom", { Item() }} );
+    rooms.push_back(constructRoom("living room", "couch", "vase"));
+    /*rooms.push_back( {"dining room",    { stdex::make_unique<Item>(Item()) }} );
+    rooms.push_back( {"kitchen",        { stdex::make_unique<Item>(Item()) }} );
+    rooms.push_back( {"hallway",        { stdex::make_unique<Item>(Item()) }} );
+    rooms.push_back( {"garage",         { stdex::make_unique<Item>(Item()) }} );
+    rooms.push_back( {"Kyle\'s room",   { stdex::make_unique<Item>(Item()) }} );
+    rooms.push_back( {"Leon\'s room",   { stdex::make_unique<Item>(Item()) }} );
+    rooms.push_back( {"bathroom",       { stdex::make_unique<Item>(Item()) }} );
+    rooms.push_back( {"closet",         { stdex::make_unique<Item>(Item()) }} );
+    rooms.push_back( {"master bedroom", { stdex::make_unique<Item>(Item()) }} );
 
     auto *livingRoom = &rooms[0];
     auto *diningRoom = &rooms[1];
@@ -61,7 +94,7 @@ House::House()
 
     closet->connectTo(hallway);
 
-    masterbed->connectTo(hallway);
+    masterbed->connectTo(hallway);*/
 }
 
 Room* House::getRoom(const std::string& roomName, Room* fromRoom)

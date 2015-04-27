@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <iostream>
 #include <list>
+#include <memory>
 #include <string>
 
 //lowercase strings if not Someone's bedroom
@@ -20,8 +21,12 @@ std::string transformSpecialName(const std::string& str)
     return copy;
 }
 
-Room::Room(const std::string& name, std::list<Item> items) 
+Room::Room(const std::string& name, std::list<std::unique_ptr<Item>> items) 
     : items(std::move(items)), name(name) 
+{ }
+
+Room::Room(Room&& other)
+    : items(std::move(other.items)), name(std::move(other.name)) 
 { }
 
 void Room::printItems() const
@@ -29,7 +34,7 @@ void Room::printItems() const
     std::cout << "This room contains: ";
     for (auto& e : items)
     {
-        std::cout << e.getName() << ", ";
+        std::cout << e->getName() << ", ";
     }
     std::cout << "\b\b." << std::endl;
 }
@@ -65,17 +70,17 @@ void Room::printPrettyName() const
     std::cout << print << std::endl;
 }
 
-Item Room::retrieveItem(const std::string& item)
+std::unique_ptr<Item> Room::retrieveItem(const std::string& item)
 {
     //find item in list
     //remove from list
     //return by move from list
-    return Item();
+    return nullptr;
 }
 
-void Room::leaveItem(Item item)
+void Room::leaveItem(std::unique_ptr<Item> item)
 {
-    items.push_back(item);
+    items.push_back(std::move(item));
 }
 
 void Room::connectTo(Room *other)

@@ -5,6 +5,7 @@
 #include <string>
 #include <items/Item.hpp>
 #include <list>
+#include <memory>
 #include <vector>
 
 class Door;
@@ -12,24 +13,24 @@ class Door;
 class Room
 {
 public:
-    Room(const std::string& name, std::list<Item> items);
+    Room(const std::string& name, std::list<std::unique_ptr<Item>> items);
+    Room(Room&& other);
 
     void printItems() const;
     void printNeighbors();
     void printPrettyName() const;
-    const std::string& getName() const; //may not need this, may just need a pretty print
-                                        //how to identify different rooms from each other?
+    const std::string& getName() const;
 
     //somehow return item by move?
-    Item retrieveItem(const std::string& item);
+    std::unique_ptr<Item> retrieveItem(const std::string& item);
     //somehow take item by move
-    void leaveItem(Item item);
+    void leaveItem(std::unique_ptr<Item> item);
 
     void connectTo(Room *other);
 
     std::vector<Room*> getNeighbors() const;
 private:
-    std::list<Item> items;
+    std::list<std::unique_ptr<Item>> items;
     std::vector<Door> doors;
     const std::string name;
 };
