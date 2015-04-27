@@ -41,15 +41,15 @@ Room constructRoom(const std::string &name
 House::House()
 {
     rooms.push_back(constructRoom("living room", "couch", "vase"));
-    /*rooms.push_back( {"dining room",    { stdex::make_unique<Item>(Item()) }} );
-    rooms.push_back( {"kitchen",        { stdex::make_unique<Item>(Item()) }} );
-    rooms.push_back( {"hallway",        { stdex::make_unique<Item>(Item()) }} );
-    rooms.push_back( {"garage",         { stdex::make_unique<Item>(Item()) }} );
-    rooms.push_back( {"Kyle\'s room",   { stdex::make_unique<Item>(Item()) }} );
-    rooms.push_back( {"Leon\'s room",   { stdex::make_unique<Item>(Item()) }} );
-    rooms.push_back( {"bathroom",       { stdex::make_unique<Item>(Item()) }} );
-    rooms.push_back( {"closet",         { stdex::make_unique<Item>(Item()) }} );
-    rooms.push_back( {"master bedroom", { stdex::make_unique<Item>(Item()) }} );
+    rooms.push_back(constructRoom("dining room", "plate", "wine glass"));
+    rooms.push_back(constructRoom("kitchen", "knife", "pan", "pot"));
+    rooms.push_back(constructRoom("hallway", "painting", "box"));
+    rooms.push_back(constructRoom("garage", "bicycle pump"));
+    rooms.push_back(constructRoom("Kyle\'s room", "pillow", "desk"));
+    rooms.push_back(constructRoom("Leon\'s room", "computer", "book", "rocket light"));
+    rooms.push_back(constructRoom("bathroom", "toilet paper", "toothpaste"));
+    rooms.push_back(constructRoom("closet", "flashlight", "battery"));
+    rooms.push_back(constructRoom("master bedroom", "lamp", "laptop", "documents"));
 
     auto *livingRoom = &rooms[0];
     auto *diningRoom = &rooms[1];
@@ -94,7 +94,7 @@ House::House()
 
     closet->connectTo(hallway);
 
-    masterbed->connectTo(hallway);*/
+    masterbed->connectTo(hallway);
 }
 
 Room* House::getRoom(const std::string& roomName, Room* fromRoom)

@@ -30,7 +30,7 @@ std::vector<std::string> tokenizeString(const std::string &str)
 
 void InputHandler::updateInput()
 {
-    std::cout << "What would you like to do?" << std::endl;
+    std::cout << "> ";
 
     std::string input;
     std::getline(std::cin, input);
