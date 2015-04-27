@@ -8,11 +8,6 @@
 #include <sstream>
 #include <utility>
 
-
-InputHandler::InputHandler()
-{
-}
-
 void InputHandler::addAction(const std::string& name, std::unique_ptr<Action> action)
 {
     validInputs.emplace(name, std::move(action));

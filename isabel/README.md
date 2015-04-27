@@ -2,8 +2,6 @@
 My version of my student's game. Teachers can learn too.
 
 # notes
-- problem! rooms create their own doors, which differ by left/right room pointer
-	- when door is already created, give other room the door too?
 
 ### representing items
 - have one overall item class

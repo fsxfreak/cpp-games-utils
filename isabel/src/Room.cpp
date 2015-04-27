@@ -55,8 +55,8 @@ void Room::printNeighbors() const
     std::cout << "There " << verb << doors.size() 
               << doorNoun << " in this room leading to ";
 
-    std::vector<Door>::const_iterator it = doors.begin();
-    std::vector<Door>::const_iterator itend = doors.end();
+    std::vector<std::shared_ptr<Door>>::const_iterator it = doors.begin();
+    std::vector<std::shared_ptr<Door>>::const_iterator itend = doors.end();
     for (; it != itend; ++it)
     {
         if (it == doors.end() - 1 && it != doors.begin())
@@ -67,7 +67,7 @@ void Room::printNeighbors() const
         }
             
 
-        std::cout << transformSpecialName(it->getNextRoom(this)->getName())
+        std::cout << transformSpecialName((*it)->getNextRoom(this)->getName())
                   << ", ";
     }
 
@@ -106,24 +106,38 @@ void Room::leaveItem(std::unique_ptr<Item> item)
 
 void Room::connectTo(Room *other)
 {
-    auto doorExistsAlready = [&] (const Door& door) {
-        return door.getNextRoom(this) == other;
-    };
+    std::vector<std::shared_ptr<Door>> otherDoors = other->doors;
 
-    if (std::find_if(doors.begin(), doors.end(), doorExistsAlready) 
-        == doors.end())
+    std::vector<std::shared_ptr<Door>>::iterator existingDoor 
+        = std::find_if(otherDoors.begin(), otherDoors.end(),
+            [&] (const std::shared_ptr<Door>& door) -> bool {
+                return door->getNextRoom(other) == this;
+            }
+    );
+
+    if (existingDoor != otherDoors.end())
     {
+        auto iAlreadyHaveDoor = 
+            [&] (const std::shared_ptr<Door>& door) {
+                return door == *existingDoor;
+            };
 
-        doors.emplace_back(this, other);
+        if (std::find_if (doors.begin(), doors.end(), iAlreadyHaveDoor) == doors.end())
+            doors.push_back(std::shared_ptr<Door>(*existingDoor));
+        
+        return;
     }
+
+    doors.emplace_back(std::make_shared<Door>(this, other));
+    other->connectTo(this);
 }
 
 std::vector<Room*> Room::getNeighbors() const
 {
     std::vector<Room*> neighbors;
     std::for_each (doors.begin(), doors.end(),
-        [&] (const Door& door) {
-            neighbors.push_back(door.getNextRoom(this));
+        [&] (const std::shared_ptr<Door>& door) {
+            neighbors.push_back(door->getNextRoom(this));
         }
     );
     return neighbors;

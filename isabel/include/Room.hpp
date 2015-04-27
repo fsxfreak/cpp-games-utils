@@ -31,7 +31,7 @@ public:
     std::vector<Room*> getNeighbors() const;
 private:
     std::list<std::unique_ptr<Item>> items;
-    std::vector<Door> doors;
+    std::vector<std::shared_ptr<Door>> doors;
     const std::string name;
 };
 

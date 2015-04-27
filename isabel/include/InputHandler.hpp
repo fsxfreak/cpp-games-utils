@@ -8,9 +8,8 @@
 class InputHandler
 {
 public:
-    InputHandler();
-    ~InputHandler() = default;
-
+    InputHandler() = default;
+    
     void addAction(const std::string& name, std::unique_ptr<Action> action);
 
     void updateInput();
