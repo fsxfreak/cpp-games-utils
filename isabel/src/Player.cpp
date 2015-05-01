@@ -1,6 +1,24 @@
 #include <Player.hpp>
+#include <algorithm>
 
 void Player::give(std::unique_ptr<Item> item) { inventory.push_back(std::move(item)); }
+
+std::unique_ptr<Item> Player::take(const std::string& itemName)
+{
+	return nullptr;
+}
+
+const int Player::getUIDForItem(const std::string& itemName) const 
+{
+	std::list<std::unique_ptr<Item>>::const_iterator item
+        = std::find_if(items.begin(), items.end(),
+            [&] (const std::unique_ptr<Item>& item) -> bool {
+                return itemName.compare(item->getName()) == 0;
+            }
+        );
+
+    return item != items.end() ? (*item)->getUID() : -1;
+}
 
 const std::vector<std::string> Player::getItemNames() const
 {
@@ -15,5 +33,5 @@ const std::vector<std::string> Player::getItemNames() const
 	return itemNames;
 }
 
-const Room* Player::getCurrentRoom() const { return currentRoom; }
-void Player::moveTo(const Room* room) { currentRoom = room; }
+Room* Player::getCurrentRoom() const { return currentRoom; }
+void Player::moveTo(Room* room) { currentRoom = room; }

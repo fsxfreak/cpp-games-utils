@@ -3,6 +3,7 @@
 
 #include <items/Item.hpp>
 #include <Room.hpp>
+#include <string>
 #include <vector>
 
 class Player
@@ -10,14 +11,17 @@ class Player
 public:
 	Player() = default;
 
+	const int getUIDForItem(const std::string& itemName) const;
 	void give(std::unique_ptr<Item> item);
+	std::unique_ptr<Item> take(const std::string& itemName);
+
 	const std::vector<std::string> getItemNames() const;
 
-	const Room* getCurrentRoom() const;
-	void moveTo(const Room* room);
+	Room* getCurrentRoom() const;
+	void moveTo(Room* room);
 private:
     std::vector<std::unique_ptr<Item>> inventory;
-    const Room* currentRoom = nullptr;
+    Room* currentRoom = nullptr;
 };
 
 #endif

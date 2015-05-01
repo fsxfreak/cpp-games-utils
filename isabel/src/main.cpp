@@ -11,12 +11,13 @@
 #include <actions/QuitAction.hpp>
 #include <actions/SurveyAction.hpp>
 #include <actions/RetrieveItemAction.hpp>
+#include <actions/UseAction.hpp>
 
 void generateControls(InputHandler& input, Player &player)
 {
     input.addAction("survey", stdex::make_unique<SurveyAction>(&player));
     input.addAction("enter", stdex::make_unique<EnterAction>(&player));
-    input.addAction("use", nullptr);
+    input.addAction("use", stdex::make_unique<UseAction>(&player));
     input.addAction("retrieve", stdex::make_unique<RetrieveItemAction>(&player));
     input.addAction("drop", nullptr);
     input.addAction("quit", stdex::make_unique<QuitAction>(&input));

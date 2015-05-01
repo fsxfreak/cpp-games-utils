@@ -1,13 +1,13 @@
-#ifndef ENTER_ACTION_HPP
-#define ENTER_ACTION_HPP
+#ifndef USE_ACTION_HPP
+#define USE_ACTION_HPP
 
 #include <actions/Action.hpp>
-#include <House.hpp>
+#include <string>
 
-class EnterAction : public Action
+class UseAction : public Action
 {
 public:
-    EnterAction(void *o);
+    UseAction(void *o);
     virtual void usage() const override;
     virtual void execute(const std::string& arg) const override;
 };

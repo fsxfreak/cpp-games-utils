@@ -6,7 +6,7 @@ Door::Door(Room* const left, Room* const right)
     : isUnlocked(true), left(left), right(right)
 { }
 
-const Room* Door::getNextRoom(const Room* fromThis) const
+Room* Door::getNextRoom(const Room* fromThis) const
 {
     if      (fromThis == left)  return right;
     else if (fromThis == right) return left;
@@ -15,9 +15,10 @@ const Room* Door::getNextRoom(const Room* fromThis) const
 
 bool Door::locked() { return !isUnlocked; }
 
-void Door::unlock(const Item& withItem)
+void Door::unlock(const int uID)
 {
-    if (withItem.getUID() == lockRequirement)
+	std::cout << uID << '/' << lockRequirement << std::endl;
+    if (uID == lockRequirement)
     	isUnlocked = true;
 }
 
