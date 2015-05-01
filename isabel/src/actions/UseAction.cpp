@@ -20,5 +20,5 @@ void UseAction::execute(const std::string& arg) const
 
     const Room* currentRoom = player->getCurrentRoom();
     std::shared_ptr<Door> lockedDoor = currentRoom->getDoorTo(roomName);
-    lockedDoor->unlock(currentRoom->getUIDForItem(itemName));
+    lockedDoor->unlock(player->getUIDForItem(itemName));
 }
